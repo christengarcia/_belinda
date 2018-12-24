@@ -70,10 +70,10 @@ namespace _belinda
         double sma10_1, sma10_2, sma40_1, sma40_2;
         double atr_current, atr_past;
         bool isYenPair = false;
+        int current_direction, last_direction;
+        bool first_time = true;
+        int hasCrossed;
 
-
-
-        //TDL 1: Declare variables needed for Cross function (see Function Notes below)
 
         //+------------------------------------------------------------------+
         //| Expert initialization function                                   |
@@ -238,9 +238,9 @@ namespace _belinda
             if (atr_current > atr_past)
             {
 
-                if (sma40_2 > sma10_2 && sma10_1 >= sma40_1) Order = SIGNAL_BUY; // Rule to ENTER a Long trade
+                if (hasCrossed == 1) Order = SIGNAL_BUY; // Rule to ENTER a Long trade
 
-                if (sma10_2 > sma40_2 && sma40_1 >= sma10_1) Order = SIGNAL_SELL; // Rule to ENTER a Short trade
+                if (hasCrossed == 2) Order = SIGNAL_SELL; // Rule to ENTER a Short trade
 
             }
 
@@ -354,7 +354,7 @@ namespace _belinda
 
         */
 
-        /*int Crossed(double line1, double line2)
+        int Crossed(double line1, double line2)
         {
 
             //----
